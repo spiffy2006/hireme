@@ -8,6 +8,7 @@ use hireme\Http\Requests;
 use hireme\Http\Controllers\Controller;
 use hireme\Entries;
 use hireme\User;
+use hireme\Comments;
 
 class EntriesController extends Controller
 {
@@ -15,7 +16,9 @@ class EntriesController extends Controller
     {
     	$entry = Entries::find($id);
 
-    	return view('entries.entry', compact('entry'));
+    	$comments = $this->get_post_comments($id);
+
+    	return view('entries.entry', compact('entry', 'comments'));
     }
 
     public function create()
@@ -78,13 +81,18 @@ class EntriesController extends Controller
     {
     	$entries = Entries::orderBy('likes', 'desc')->limit(30)->get();
 
-    	return view('popular', compact('entries'));
+    	return view('entries.popular', compact('entries'));
     }
 
     public function recent()
     {
     	$entries = Entries::latest()->limit(30)->get();
 
-    	return view('recent', compact('entries'));
+    	return view('entries.recent', compact('entries'));
+    }
+
+    public function get_post_comments($id)
+    {
+    	return Comments::where('post_id', $id)->get();
     }
 }

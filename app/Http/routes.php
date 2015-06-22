@@ -26,6 +26,9 @@ Route::get('users/{id}', 'UserController@entry');
 Route::post('users', 'UserController@store');
 
 // Entries
+Route::get('entries/recent', 'EntriesController@recent');
+Route::get('entries/popular', 'EntriesController@popular');
+Route::get('entries/create', 'EntriesController@create');
 Route::get('entries/{username}', 'EntriesController@entries_by_user');
 Route::get('entries/entry/{id}', 'EntriesController@show');
 Route::resource('entries', 'EntriesController');

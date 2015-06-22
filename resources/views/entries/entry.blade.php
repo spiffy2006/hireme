@@ -5,4 +5,5 @@
 	<h3>{{$entry->title}}</h3>
 	<p>{{$entry->entry}}</p>
 </section>
+@include('comments')
 @stop

@@ -19,19 +19,31 @@
                     </div>  
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="#">Recent</a>
+                            <a href="{{ url('/entries/recent') }}">Recent</a>
                         </li>
                         <li>
-                            <a href="">Popular</a>
+                            <a href="{{ url('/entries/popular') }}">Popular</a>
                         </li>
                         <li>
                             <a href="{{ url('/entries') }}">All</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="{{ url('/auth/login') }}">Log in</a>
-                        </li>
+                        @if(Auth::check())
+                            <li>
+                                <a href="{{ url('/entries/' . Auth::user()->username) }}">My Entries</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/entries/create') }}">New Entry</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/auth/logout') }}">Log out</a>
+                            </li>
+                        @else
+                            <li>
+                                <a href="{{ url('/auth/login') }}">Log in</a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </nav>
