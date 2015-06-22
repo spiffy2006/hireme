@@ -11,6 +11,31 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function() {
+	return view('home');
 });
+
+Route::get('home', 'PagesController@home');
+
+
+// Users
+Route::get('users', 'UserController@users');
+Route::get('users/create', 'UserController@create');
+Route::get('users/{id}/edit', 'UserController@edit');
+Route::get('users/{id}', 'UserController@entry');
+Route::post('users', 'UserController@store');
+
+// Entries
+Route::get('entries/{username}', 'EntriesController@entries_by_user');
+Route::get('entries/entry/{id}', 'EntriesController@show');
+Route::resource('entries', 'EntriesController');
+
+// Comments
+Route::get('comments/create', 'CommentsController@create');
+Route::post('comments', 'CommentsController@store');
+
+// Auth
+Route::controllers([
+	'auth' => 'Auth\AuthController',
+	'password' => 'Auth\PasswordController'
+]);
